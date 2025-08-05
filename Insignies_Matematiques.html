@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF‑8">
+  <title>Insígnies Matemàtiques</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .accordion { margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    .acc-header { background: #f0f0f0; padding: 8px; cursor: pointer; }
+    .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 8px; }
+    .acc-content.open { max-height: 300px; padding: 8px; }
+    .badge { display: inline-block; width: 60px; height: 70px; margin: 5px; border: 2px solid #888;
+      border-radius: 5px 5px 0 0; background: #ccc; color: #333; text-align: center; line-height: 1.2;
+      cursor: pointer; font-size: 12px; user-select: none;
+    }
+    .bronze { background:#cd7f32; color:#fff; }
+    .silver { background:#c0c0c0; color:#000; }
+    .gold { background:#ffd700; color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>Insígnies Matemàtiques</h1>
+
+<script>
+  const blocs = ['Numeració i càlcul','Mesura i relacions','Geometria','Estadística','Àlgebra'];
+  function crearAccordion(index) {
+    const acc = document.createElement('div'); acc.className='accordion';
+    const hdr = document.createElement('div'); hdr.className='acc-header';
+    hdr.textContent = 'ALUMNE ' + (index+1);
+    acc.appendChild(hdr);
+    const cont = document.createElement('div'); cont.className='acc-content';
+    blocs.forEach(b => {
+      ['Iniciació','Consolidació','Domini'].forEach((niv,i) => {
+        const span = document.createElement('div');
+        span.className='badge';
+        span.textContent = b + '\n' + niv;
+        span.onclick = () => {
+          span.classList.remove('bronze', 'silver', 'gold');
+          span.classList.add(['bronze','silver','gold'][i]);
+        };
+        cont.appendChild(span);
+      });
+    });
+    acc.appendChild(cont);
+    hdr.addEventListener('click', () => cont.classList.toggle('open'));
+    return acc;
+  }
+  window.onload = () => {
+    const container = document.body;
+    for(let i=0;i<20;i++){
+      container.appendChild(crearAccordion(i));
+    }
+  };
+</script>
+
+</body>
+</html>
